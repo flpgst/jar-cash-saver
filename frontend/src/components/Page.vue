@@ -1,3 +1,3 @@
 <template>
-  <div></div>
+  <v-row> </v-row>
 </template>
