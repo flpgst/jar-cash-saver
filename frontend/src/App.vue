@@ -2,7 +2,7 @@
   <v-app>
     <app-header />
     <v-content>
-      <home />
+      <router-view />
     </v-content>
     <app-menu />
   </v-app>
@@ -12,13 +12,11 @@
 import "./app.css";
 import AppHeader from "./components/AppHeader";
 import AppMenu from "./components/AppMenu";
-import Home from "./components/Home";
 
 export default {
   name: "App",
 
   components: {
-    Home,
     AppMenu,
     AppHeader
   },
