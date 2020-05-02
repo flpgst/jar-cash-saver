@@ -3,7 +3,9 @@
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <v-icon v-on="on">mdi-home-outline</v-icon>
+          <v-btn to="/" v-on="on">
+            <v-icon>mdi-home-outline</v-icon>
+          </v-btn>
         </template>
         <span>Ínicio</span>
       </v-tooltip>
@@ -12,7 +14,9 @@
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <v-icon v-on="on">mdi-currency-usd-circle-outline</v-icon>
+          <v-btn to="/" v-on="on">
+            <v-icon>mdi-currency-usd-circle-outline</v-icon>
+          </v-btn>
         </template>
         <span>Meus Jarros</span>
       </v-tooltip>
@@ -21,7 +25,9 @@
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <v-icon v-on="on">mdi-account-outline</v-icon>
+          <v-btn to="/" v-on="on">
+            <v-icon>mdi-account-outline</v-icon>
+          </v-btn>
         </template>
         <span>Meu Perfil</span>
       </v-tooltip>

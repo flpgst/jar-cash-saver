@@ -21,7 +21,7 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card flat>
+        <v-card flat to="tips">
           <v-row class="ma-0">
             <v-avatar size="75" class="ml-2 align-self-center" tile>
               <v-img
@@ -46,7 +46,7 @@
         </v-card>
       </v-col>
       <v-col cols="12">
-        <v-card flat>
+        <v-card flat to="achievements">
           <v-row class="ma-0">
             <v-avatar size="75" class="ml-2 align-self-center" tile>
               <v-img
