@@ -20,11 +20,19 @@
         :key="i"
         class="d-flex flex-wrap justify-center"
       >
-        <v-badge :color="jar.locker.color" :icon="jar.locker.icon" overlap>
-          <v-btn icon :to="jar.path">
-            <v-icon size="40" :color="jar.color">{{ jar.icon }}</v-icon>
+        <v-badge
+          v-if="jar.targetValue"
+          color="#f7b500"
+          :icon="getLockIcon(jar)"
+          overlap
+        >
+          <v-btn icon :to="`jar/${jar.id}`">
+            <v-icon size="40" :color="jar.color">{{ getIcon(jar) }}</v-icon>
           </v-btn>
         </v-badge>
+        <v-btn v-else icon :to="`jar/${jar.id}`">
+          <v-icon size="40" :color="jar.color">{{ getIcon(jar) }}</v-icon>
+        </v-btn>
         <p class="font-weight-medium caption text-center">
           {{ jar.name }}
         </p>
@@ -34,50 +42,31 @@
 </template>
 
 <script>
+import api from "../api";
+
 export default {
-  data: () => ({
-    jars: [
-      {
-        id: 1,
-        name: "Jarro da Reserva",
-        icon: "mdi-cup",
-        path: "jar/1",
-        locker: {
-          icon: "mdi-lock",
-          color: "#f7b500"
-        }
-      },
-      {
-        id: 2,
-        name: "Jarro da Despesa Emergencial",
-        icon: "mdi-cup-outline",
-        path: "jar/2",
-        locker: {
-          icon: "mdi-lock",
-          color: "#f7b500"
-        }
-      },
-      {
-        id: 3,
-        name: "Jarro do Futuro",
-        icon: "mdi-cup",
-        path: "jar/3",
-        locker: {
-          icon: "mdi-lock",
-          color: "#f7b500"
-        }
-      },
-      {
-        id: 4,
-        name: "Viagem Nordeste",
-        icon: "mdi-cup-outline",
-        path: "jar/4",
-        locker: {
-          icon: "mdi-exclamation-thick",
-          color: "#e02020"
-        }
+  methods: {
+    getIcon(jar) {
+      if (jar.currentValue === 0) {
+        return "mdi-cup-outline";
+      } else {
+        return "mdi-cup";
       }
-    ]
-  })
+    },
+    getLockIcon(jar) {
+      if (!jar.targetValue) {
+        return "";
+      }
+      return jar.targetValue * 0.7 < jar.currentValue
+        ? "mdi-lock"
+        : "mdi-exclamation-thick";
+    }
+  },
+  data: () => ({
+    jars: []
+  }),
+  mounted() {
+    this.jars = api.getJars();
+  }
 };
 </script>
