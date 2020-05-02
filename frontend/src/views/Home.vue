@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" class="headline font-weight-black">
-        Olá Fernando
+        Olá {{ account.name }}
       </v-col>
       <v-col class="py-0 font-weight-medium" cols="12">
         Até agora você juntou
@@ -11,7 +11,7 @@
         cols="9"
         class=" py-0 align-self-center headline font-weight-black"
       >
-        R$ 3.123,32
+        R$ {{ account.currentValue.toFixed(2) }}
       </v-col>
       <v-col cols="auto" class="py-0 align-self-center">
         <v-btn text fab small>
@@ -74,12 +74,24 @@
 </template>
 
 <script>
+import api from "../api";
+
 export default {
   name: "Home",
 
-  data: () => ({})
+  data: () => ({
+    account: {
+      name: '',
+      currentValue: 0.0
+    }
+  }),
+
+  mounted() {
+    this.account = api.getAccount();
+  }
 };
 </script>
+
 <style scoped>
 .title-color {
   color: #00a857;
