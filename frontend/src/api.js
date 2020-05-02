@@ -118,14 +118,14 @@ function adjustNonGoalJarFractions(jars) {
   const availableFraction = calculateAvailableFraction(jars);
   const jarsToAdjust = jars.filter(jar => !jar.dueDate);
   const fraction = availableFraction / jarsToAdjust.length;
-  for (let jar in jarsToAdjust) {
+  for (let jar of jarsToAdjust) {
     jar.fraction = fraction;
   }
 }
 
 function updateJarValues(account, jars) {
-  for (let jar in jars) {
-    jar.currentValue = account.currentValue * jar.fraction;
+  for (let jar of jars) {
+    jar.currentValue = (account.currentValue * jar.fraction).toFixed(2);
   }
   saveJars(jars);
 }
@@ -146,10 +146,10 @@ function getTrophies() {
   ];
 }
 
-function processMonthlyIncoming(value) {
+function processMonthlyIncoming() {
   const account = getAccount();
   const jars = getJars();
-  account.currentValue = account.currentValue + value;
+  account.currentValue = account.currentValue + account.monthlySaving;
   saveAccount(account);
   updateJarValues(account, jars);
 }
