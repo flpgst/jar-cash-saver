@@ -7,7 +7,7 @@
 
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-badge bottom content="10" overlap>
+          <v-badge bottom :content="coins" overlap>
             <v-btn icon v-on="on" to="achievements">
               <v-icon color="yellow darken-3"
                 >mdi-circle-multiple-outline</v-icon
@@ -20,3 +20,20 @@
     </v-app-bar>
   </div>
 </template>
+
+<script>
+import api from "../api";
+
+export default {
+  name: "Home",
+
+  data: () => ({
+    coins: 0
+  }),
+
+  mounted() {
+    const account = api.getAccount();
+    this.coins = account.coins;
+  }
+};
+</script>
