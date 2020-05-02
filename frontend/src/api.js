@@ -33,7 +33,8 @@ function fetchJars() {
       name: "Reserva de emergência",
       fraction: 0.05,
       color: "red",
-      shared: false
+      shared: false,
+      unlockable: false
     },
     {
       id: 2,
@@ -41,7 +42,8 @@ function fetchJars() {
       name: "Jarro do futuro",
       fraction: 0.05,
       color: "cyan",
-      shared: false
+      shared: false,
+      unlockable: false
     }
   ];
   saveJars(jars);
@@ -54,6 +56,11 @@ function getJars() {
   return JSON.parse(localStorage.jars);
 }
 
+function getJarById(id) {
+  const jars = getJars();
+  return jars.find(jar => jar.id === id);
+}
+
 function saveJars(jars) {
   localStorage.setItem("jars", JSON.stringify(jars));
 }
@@ -63,7 +70,8 @@ function createJar(
   targetValue,
   color = "orange",
   dueDate = null,
-  shared = false
+  shared = false,
+  unlockable = false
 ) {
   const account = getAccount();
   const jars = getJars();
@@ -83,7 +91,8 @@ function createJar(
     dueDate,
     fraction,
     color,
-    shared
+    shared,
+    unlockable
   });
   adjustNonGoalJarFractions(jars);
   updateJarValues(account, jars);
@@ -121,12 +130,17 @@ function updateJarValues(account, jars) {
   saveJars(jars);
 }
 
+//mocked
 function getTrophies() {
   return [
     {
-      name: "Criação da conta",
-      description:
-        "Recebido por criar sua conta no aplicativo e começar a poupar",
+      name: "Primeiro troféu",
+      description: "Obtido por iniciar a jornada de poupar",
+      coins: 20
+    },
+    {
+      name: "Indicações Lv.1",
+      description: "Obtido por indicar 3 amigos",
       coins: 50
     }
   ];
@@ -143,6 +157,7 @@ function processMonthlyIncoming(value) {
 export default {
   getAccount,
   getJars,
+  getJarById,
   createJar,
   getTrophies,
   processMonthlyIncoming

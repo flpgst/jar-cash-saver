@@ -21,7 +21,7 @@
         class="d-flex flex-wrap justify-center"
       >
         <v-badge
-          v-if="jar.targetValue"
+          v-if="jar.unlockable"
           color="#f7b500"
           :icon="getLockIcon(jar)"
           overlap
@@ -54,9 +54,6 @@ export default {
       }
     },
     getLockIcon(jar) {
-      if (!jar.targetValue) {
-        return "";
-      }
       return jar.targetValue * 0.7 < jar.currentValue
         ? "mdi-lock"
         : "mdi-exclamation-thick";
