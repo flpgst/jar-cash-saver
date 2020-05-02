@@ -31,6 +31,13 @@ const routes = [
     path: "/jars",
     name: "Jars",
     component: () => import(/* webpackChunkName: "tips" */ "../views/Jars.vue")
+  },
+  {
+    path: "/jar/:id",
+    name: "JarData",
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "tips" */ "../views/JarData.vue")
   }
 ];
 
