@@ -9,15 +9,25 @@
       </v-col>
       <v-col cols="12" class="d-flex justify-end">
         <v-btn icon>
-          <v-icon color="6dd400">mdi-plus-circle</v-icon>
+          <v-icon color="#6dd400">mdi-plus-circle</v-icon>
         </v-btn>
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="4" v-for="(jar, i) in jars" :key="i">
-        <v-btn icon :to="jar.path">
-          <v-icon :color="jar.color">{{ jar.icon }}</v-icon>
-        </v-btn>
+      <v-col
+        cols="4"
+        v-for="(jar, i) in jars"
+        :key="i"
+        class="d-flex flex-wrap justify-center"
+      >
+        <v-badge :color="jar.locker.color" :icon="jar.locker.icon" overlap>
+          <v-btn icon :to="jar.path">
+            <v-icon size="40" :color="jar.color">{{ jar.icon }}</v-icon>
+          </v-btn>
+        </v-badge>
+        <p class="font-weight-medium caption text-center">
+          {{ jar.name }}
+        </p>
       </v-col>
     </v-row>
   </v-container>
@@ -31,21 +41,42 @@ export default {
         {
           id: 1,
           name: "Jarro da Reserva",
-          icon: "me-poupe.jpg",
-          path: "jar/1"
+          icon: "mdi-cup",
+          path: "jar/1",
+          locker: {
+            icon: "mdi-lock",
+            color: "#f7b500"
+          }
         },
         {
           id: 2,
           name: "Jarro da Despesa Emergencial",
-          icon: "primo-rico.jpg",
-          path: "jar/2"
+          icon: "mdi-cup-outline",
+          path: "jar/2",
+          locker: {
+            icon: "mdi-lock",
+            color: "#f7b500"
+          }
         },
-
         {
           id: 3,
           name: "Jarro do Futuro",
-          icon: "spiti.jpg",
-          path: "jar/3"
+          icon: "mdi-cup",
+          path: "jar/3",
+          locker: {
+            icon: "mdi-lock",
+            color: "#f7b500"
+          }
+        },
+        {
+          id: 4,
+          name: "Viagem Nordeste",
+          icon: "mdi-cup-outline",
+          path: "jar/4",
+          locker: {
+            icon: "mdi-exclamation-thick",
+            color: "#e02020"
+          }
         }
       ]
     };
