@@ -35,51 +35,49 @@
 
 <script>
 export default {
-  data() {
-    return {
-      jars: [
-        {
-          id: 1,
-          name: "Jarro da Reserva",
-          icon: "mdi-cup",
-          path: "jar/1",
-          locker: {
-            icon: "mdi-lock",
-            color: "#f7b500"
-          }
-        },
-        {
-          id: 2,
-          name: "Jarro da Despesa Emergencial",
-          icon: "mdi-cup-outline",
-          path: "jar/2",
-          locker: {
-            icon: "mdi-lock",
-            color: "#f7b500"
-          }
-        },
-        {
-          id: 3,
-          name: "Jarro do Futuro",
-          icon: "mdi-cup",
-          path: "jar/3",
-          locker: {
-            icon: "mdi-lock",
-            color: "#f7b500"
-          }
-        },
-        {
-          id: 4,
-          name: "Viagem Nordeste",
-          icon: "mdi-cup-outline",
-          path: "jar/4",
-          locker: {
-            icon: "mdi-exclamation-thick",
-            color: "#e02020"
-          }
+  data: () => ({
+    jars: [
+      {
+        id: 1,
+        name: "Jarro da Reserva",
+        icon: "mdi-cup",
+        path: "jar/1",
+        locker: {
+          icon: "mdi-lock",
+          color: "#f7b500"
         }
-      ]
-    };
-  }
+      },
+      {
+        id: 2,
+        name: "Jarro da Despesa Emergencial",
+        icon: "mdi-cup-outline",
+        path: "jar/2",
+        locker: {
+          icon: "mdi-lock",
+          color: "#f7b500"
+        }
+      },
+      {
+        id: 3,
+        name: "Jarro do Futuro",
+        icon: "mdi-cup",
+        path: "jar/3",
+        locker: {
+          icon: "mdi-lock",
+          color: "#f7b500"
+        }
+      },
+      {
+        id: 4,
+        name: "Viagem Nordeste",
+        icon: "mdi-cup-outline",
+        path: "jar/4",
+        locker: {
+          icon: "mdi-exclamation-thick",
+          color: "#e02020"
+        }
+      }
+    ]
+  })
 };
 </script>

@@ -30,24 +30,22 @@
 
 <script>
 export default {
-  data() {
-    return {
-      items: [
-        {
-          src: "me-poupe.jpg",
-          url: "https://mepoupenaweb.uol.com.br/"
-        },
-        {
-          src: "primo-rico.jpg",
-          url: "https://www.youtube.com/channel/UCT4nDeU5pv1XIGySbSK-GgA"
-        },
+  data: () => ({
+    items: [
+      {
+        src: "me-poupe.jpg",
+        url: "https://mepoupenaweb.uol.com.br/"
+      },
+      {
+        src: "primo-rico.jpg",
+        url: "https://www.youtube.com/channel/UCT4nDeU5pv1XIGySbSK-GgA"
+      },
 
-        {
-          src: "spiti.jpg",
-          url: "https://invistaspiti.com.br/"
-        }
-      ]
-    };
-  }
+      {
+        src: "spiti.jpg",
+        url: "https://invistaspiti.com.br/"
+      }
+    ]
+  })
 };
 </script>
