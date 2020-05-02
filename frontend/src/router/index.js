@@ -26,6 +26,11 @@ const routes = [
     name: "AchievementsPartners",
     component: () =>
       import(/* webpackChunkName: "tips" */ "../views/AchievementsPartners.vue")
+  },
+  {
+    path: "/jars",
+    name: "Jars",
+    component: () => import(/* webpackChunkName: "tips" */ "../views/Jars.vue")
   }
 ];
 

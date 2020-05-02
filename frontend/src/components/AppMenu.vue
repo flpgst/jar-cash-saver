@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation background-color="#aeefaa" :value="activeBtn">
+  <v-bottom-navigation background-color="#aeefaa" :value="activeBtn" app>
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
@@ -14,7 +14,7 @@
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <v-btn to="/" v-on="on">
+          <v-btn to="jars" v-on="on">
             <v-icon>mdi-currency-usd-circle-outline</v-icon>
           </v-btn>
         </template>
