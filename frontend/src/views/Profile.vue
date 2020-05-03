@@ -83,12 +83,12 @@
     </v-row>
     <v-dialog v-model="modalBankAccount">
       <v-card flat class="text-center py-3">
-        <add-bank-account @onSubmit="addBankAccount" />
+        <add-bank-account @onSubmit="addBankAccount" connectBtn />
       </v-card>
     </v-dialog>
     <v-dialog v-model="modalCreditCard">
       <v-card flat class="text-center py-3">
-        <add-credit-card @onSubmit="addCreditCard" />
+        <add-credit-card @onSubmit="addCreditCard" connectBtn />
       </v-card>
     </v-dialog>
   </v-container>

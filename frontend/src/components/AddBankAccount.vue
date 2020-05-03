@@ -35,7 +35,14 @@
         />
       </v-col>
     </v-row>
-    <v-btn rounded depressed dark color="#00a857" @click="submit">
+    <v-btn
+      v-if="connectBtn"
+      rounded
+      depressed
+      dark
+      color="#00a857"
+      @click="submit"
+    >
       Conectar
     </v-btn>
   </div>
@@ -55,6 +62,10 @@ export default {
     onSubmit: {
       type: Function,
       default: () => {}
+    },
+    connectBtn: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

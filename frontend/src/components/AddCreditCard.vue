@@ -14,7 +14,14 @@
           dense
         />
       </v-col>
-      <v-btn rounded depressed dark color="#00a857" @click="submit">
+      <v-btn
+        v-if="connectBtn"
+        rounded
+        depressed
+        dark
+        color="#00a857"
+        @click="submit"
+      >
         Conectar
       </v-btn>
     </v-row>
@@ -31,6 +38,12 @@ export default {
         this.card.name = type;
       }
     });
+  },
+  props: {
+    connectBtn: {
+      type: Boolean,
+      default: false
+    }
   },
   data: () => ({
     card: {
