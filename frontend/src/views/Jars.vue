@@ -71,6 +71,7 @@ export default {
     },
     getWarning(jar) {
       if (jar.status === "ACHIEVED") this.warning = true;
+      return jar.status === "LOCKED" ? "mdi-lock" : "mdi-exclamation-thick";
     }
   },
   data: () => ({
