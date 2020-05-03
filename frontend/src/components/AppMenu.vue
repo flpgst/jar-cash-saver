@@ -14,7 +14,7 @@
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <v-btn to="jars" v-on="on">
+          <v-btn to="/jars" v-on="on">
             <v-icon>mdi-currency-usd-circle-outline</v-icon>
           </v-btn>
         </template>
@@ -25,7 +25,7 @@
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <v-btn to="/" v-on="on">
+          <v-btn to="/profile" v-on="on">
             <v-icon>mdi-account-outline</v-icon>
           </v-btn>
         </template>
