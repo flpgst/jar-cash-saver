@@ -25,25 +25,34 @@ const routes = [
     path: "/achievements",
     name: "Achievements",
     component: () =>
-      import(/* webpackChunkName: "tips" */ "../views/Achievements.vue")
+      import(/* webpackChunkName: "achievements" */ "../views/Achievements.vue")
   },
   {
     path: "/achievements-partners",
     name: "AchievementsPartners",
     component: () =>
-      import(/* webpackChunkName: "tips" */ "../views/AchievementsPartners.vue")
+      import(
+        /* webpackChunkName: "achievement-partners" */ "../views/AchievementsPartners.vue"
+      )
   },
   {
     path: "/jars",
     name: "Jars",
-    component: () => import(/* webpackChunkName: "tips" */ "../views/Jars.vue")
+    component: () => import(/* webpackChunkName: "jars" */ "../views/Jars.vue")
   },
   {
     path: "/jar/:id",
     name: "JarData",
     props: true,
     component: () =>
-      import(/* webpackChunkName: "tips" */ "../views/JarData.vue")
+      import(/* webpackChunkName: "jar" */ "../views/JarData.vue")
+  },
+  {
+    path: "/new-jar",
+    name: "JarCreation",
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "new-jar" */ "../views/JarCreation.vue")
   }
 ];
 

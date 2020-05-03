@@ -8,9 +8,14 @@
         Meus Jarros
       </v-col>
       <v-col cols="12" class="d-flex justify-end">
-        <v-btn icon>
-          <v-icon color="#6dd400">mdi-plus-circle</v-icon>
-        </v-btn>
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-btn icon to="new-jar" v-on="on">
+              <v-icon color="#6dd400">mdi-plus-circle</v-icon>
+            </v-btn>
+          </template>
+          <span>Criar novo jarro</span>
+        </v-tooltip>
       </v-col>
     </v-row>
     <v-row>
