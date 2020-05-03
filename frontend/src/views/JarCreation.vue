@@ -15,7 +15,7 @@
           label="Nome do jarro"
           placeholder="Jarro da felicidade =D"
           dense
-        ></v-text-field>
+        />
       </v-col>
     </v-row>
     <v-row class="d-flex justify-center">
@@ -50,7 +50,7 @@
           dense
           placeholder="$$$$$$$$"
           prefix="R$"
-        ></v-text-field>
+        />
       </v-col>
     </v-row>
     <v-row class="d-flex justify-center">
@@ -69,7 +69,7 @@
               readonly
               @blur="date = parseDate(dateFormatted)"
               v-on="on"
-            ></v-text-field>
+            />
           </template>
           <v-date-picker
             v-model="date"
