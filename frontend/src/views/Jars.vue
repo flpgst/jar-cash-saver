@@ -38,7 +38,7 @@
         <v-btn v-else icon :to="`jar/${jar.id}`">
           <v-icon size="40" :color="jar.color">{{ getIcon(jar) }}</v-icon>
         </v-btn>
-        <p class="font-weight-medium caption text-center">
+        <p class="font-weight-medium caption text-center" style="width: 100%">
           {{ jar.name }}
         </p>
       </v-col>
