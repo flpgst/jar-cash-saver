@@ -81,7 +81,7 @@ export default {
 
   data: () => ({
     account: {
-      name: '',
+      name: "",
       currentValue: 0.0
     }
   }),

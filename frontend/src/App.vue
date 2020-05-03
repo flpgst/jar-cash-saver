@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import api from "./api";
 import "./app.css";
 import AppHeader from "./components/AppHeader";
 import AppMenu from "./components/AppMenu";
@@ -21,8 +22,14 @@ export default {
     AppHeader
   },
 
-  data: () => ({
-    //
-  })
+  methods: {
+    simulateMontlhyIncoming() {
+      api.processMonthlyIncoming();
+    }
+  },
+
+  created() {
+    this.$options.interval = setInterval(this.simulateMontlhyIncoming, 60000);
+  }
 };
 </script>
