@@ -73,7 +73,7 @@ export default {
   },
   data: () => ({
     jars: [],
-    warning: true
+    warning: false
   }),
   components: {
     completeWarning
