@@ -24,59 +24,18 @@
         />
       </v-col>
     </v-row>
-    <v-row class="font-weight-bold d-flex justify-center py-0 my-0">
-      <v-col cols="10" class="text-center pb-0">
-        Cartão de crédito
-      </v-col>
-      <v-col cols="10">
-        <v-text-field
-          v-model="cpf"
-          placeholder="Número do cartão"
-          outlined
-          dense
-        />
-      </v-col>
-    </v-row>
-    <v-row class="font-weight-bold d-flex justify-center">
-      <v-col cols="10" class="text-center pb-0">
-        Dados da conta
-      </v-col>
-      <v-col cols="5" class="pb-0">
-        <v-text-field
-          v-model="bankBranch"
-          placeholder="Agência"
-          outlined
-          dense
-        />
-      </v-col>
-      <v-col cols="5" class="pb-0">
-        <v-text-field
-          v-model="bankAccount"
-          placeholder="Conta (com dígito)"
-          outlined
-          dense
-        />
-      </v-col>
-      <v-col cols="10" class="pt-0">
-        <v-select
-          v-model="bank"
-          :items="banks"
-          :item-text="b => `${b.value} - ${b.label}`"
-          item-value="value"
-          placeholder="Nome ou número do banco"
-          outlined
-          dense
-        ></v-select>
-      </v-col>
-    </v-row>
+
+    <add-credit-card />
+
+    <add-bank-account @bank="e => handleButton(e)" />
 
     <v-col cols="12" class="text-center py-0">
       <v-btn
         rounded
         depressed
-        :disabled="!bank || !bankBranch || !bankAccount"
+        :disabled="!disabled"
         color="#00a857"
-        :dark="!!bank && !!bankBranch && !!bankAccount"
+        :dark="disabled"
         to="connect-accounts"
         >Conectar</v-btn
       >
@@ -85,16 +44,22 @@
 </template>
 
 <script>
-import banks_list from "../util/banks_list.json";
+import AddBankAccount from "../components/AddBankAccount";
+import AddCreditCard from "../components/AddCreditCard";
 export default {
   name: "connect-acconts",
   data: () => ({
-    banks: banks_list,
-    bank: null,
-    bankBranch: null,
-    bankAccount: null,
     cpf: null,
-    creditCard: null
-  })
+    disabled: false
+  }),
+  components: {
+    AddBankAccount,
+    AddCreditCard
+  },
+  methods: {
+    handleButton(e) {
+      this.disabled = e;
+    }
+  }
 };
 </script>
