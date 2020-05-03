@@ -194,7 +194,7 @@ function processMonthlyIncoming() {
   const jars = getJars();
   const income = account.monthlySaving;
   account.currentValue += income;
-  account.coins += Math.ceil(income / 5);
+  account.coins += Math.ceil(income / 10);
   saveAccount(account);
 
   checkAndUpdateCompletedJars(account, jars);
