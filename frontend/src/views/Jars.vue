@@ -59,9 +59,7 @@ export default {
       }
     },
     getLockIcon(jar) {
-      return jar.targetValue * 0.7 < jar.currentValue
-        ? "mdi-lock"
-        : "mdi-exclamation-thick";
+      return jar.status === "LOCKED" ? "mdi-lock" : "mdi-exclamation-thick";
     }
   },
   data: () => ({

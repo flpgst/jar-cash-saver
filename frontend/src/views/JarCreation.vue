@@ -139,14 +139,19 @@ export default {
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     },
     createJar() {
-      api.createJar(
-        this.name,
-        this.targetValue,
-        colors[this.color],
-        this.date,
-        false,
-        true
-      );
+      try {
+        api.createJar(
+          this.name,
+          parseFloat(this.targetValue),
+          colors[this.color],
+          this.date,
+          false,
+          true
+        );
+        this.$router.push("/jars");
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 };

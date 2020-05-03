@@ -125,9 +125,18 @@
 </template>
 
 <script>
+import api from "../api";
+
 export default {
+  name: "Achievements",
+
   data: () => ({
-    coins: 10
-  })
+    coins: 0
+  }),
+
+  mounted() {
+    const account = api.getAccount();
+    this.coins = account.coins;
+  }
 };
 </script>

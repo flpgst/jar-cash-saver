@@ -34,7 +34,8 @@ function fetchJars() {
       fraction: 0.05,
       color: "red",
       shared: false,
-      unlockable: false
+      unlockable: false,
+      status: "ACTIVE"
     },
     {
       id: 2,
@@ -43,7 +44,8 @@ function fetchJars() {
       fraction: 0.05,
       color: "cyan",
       shared: false,
-      unlockable: false
+      unlockable: false,
+      status: "ACTIVE"
     }
   ];
   saveJars(jars);
@@ -92,17 +94,20 @@ function createJar(
     fraction,
     color,
     shared,
-    unlockable
+    unlockable,
+    status: unlockable ? "LOCKED" : "ACTIVE"
   });
+  checkAndUpdateCompletedJars(account, jars);
   adjustNonGoalJarFractions(jars);
-  updateJarValues(account, jars);
+  updateActiveJarValues(account, jars);
+  saveJars(jars);
 }
 
 function calculateAvailableFraction(jars) {
   return (
     1 -
     jars
-      .filter(jar => jar.dueDate)
+      .filter(jar => jar.dueDate && jar.status !== "COMPLETED")
       .map(jar => jar.fraction)
       .reduce((a, b) => a + b, 0)
   );
@@ -114,6 +119,18 @@ function calculateFraction(targetValue, monthlySaving, dueDate) {
   return valuePerMonth / monthlySaving;
 }
 
+function checkAndUpdateCompletedJars(account, jars) {
+  for (let jar of jars) {
+    const fractionValue = (account.currentValue * jar.fraction).toFixed(2);
+    if (jar.dueDate && fractionValue >= jar.targetValue) {
+      jar.currentValue = jar.targetValue;
+      jar.status = "COMPLETED";
+      account.currentValue = account.currentValue - jar.currentValue;
+      saveAccount(account);
+    }
+  }
+}
+
 function adjustNonGoalJarFractions(jars) {
   const availableFraction = calculateAvailableFraction(jars);
   const jarsToAdjust = jars.filter(jar => !jar.dueDate);
@@ -123,11 +140,15 @@ function adjustNonGoalJarFractions(jars) {
   }
 }
 
-function updateJarValues(account, jars) {
-  for (let jar of jars) {
-    jar.currentValue = (account.currentValue * jar.fraction).toFixed(2);
+function updateActiveJarValues(account, jars) {
+  const activeJars = jars.filter(jar => jar.status !== "COMPLETED");
+  for (let jar of activeJars) {
+    const fractionValue = (account.currentValue * jar.fraction).toFixed(2);
+    jar.currentValue = fractionValue;
+    if (jar.status === "LOCKED" && jar.targetValue * 0.7 < jar.currentValue) {
+      jar.status = "UNLOCKED";
+    }
   }
-  saveJars(jars);
 }
 
 //mocked
@@ -151,7 +172,11 @@ function processMonthlyIncoming() {
   const jars = getJars();
   account.currentValue = account.currentValue + account.monthlySaving;
   saveAccount(account);
-  updateJarValues(account, jars);
+
+  checkAndUpdateCompletedJars(account, jars);
+  adjustNonGoalJarFractions(jars);
+  updateActiveJarValues(account, jars);
+  saveJars(jars);
 }
 
 export default {

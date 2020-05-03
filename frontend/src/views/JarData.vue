@@ -7,11 +7,11 @@
     </v-row>
     <v-row>
       <v-col cols="12" class="text-center">
-        <v-badge color="#f7b500" :icon="getLockIcon(jar)" overlap>
+        <v-badge color="#f7b500" :icon="getLockIcon()" overlap>
           <v-tooltip color="#f7b500" right>
             <template v-slot:activator="{ on }">
               <v-icon v-on="on" size="80" :color="jar.color">{{
-                getIcon(jar)
+                getIcon()
               }}</v-icon>
             </template>
             <span class="caption">
@@ -37,7 +37,7 @@
     <v-row class="ma-0 d-flex justify-center">
       <v-col class="justify-self-center pa-0" cols="10">
         <v-text-field
-          :value="account.monthlySaving * jar.fraction"
+          :value="getMonthlyValue()"
           label="Valor depositado por mês"
           readonly
           prefix="R$"
@@ -85,17 +85,20 @@ export default {
     jar: null
   }),
   methods: {
-    getIcon(jar) {
-      if (jar.currentValue === 0) {
+    getMonthlyValue() {
+      return (this.account.monthlySaving * this.jar.fraction).toFixed(2);
+    },
+    getIcon() {
+      if (this.jar.currentValue === 0) {
         return "mdi-cup-outline";
       } else {
         return "mdi-cup";
       }
     },
-    getLockIcon(jar) {
-      return jar.targetValue * 0.7 < jar.currentValue
-        ? "mdi-lock"
-        : "mdi-exclamation-thick";
+    getLockIcon() {
+      return this.jar.status === "LOCKED"
+          ? "mdi-lock"
+          : "mdi-exclamation-thick";
     },
     editing() {
       return true;
