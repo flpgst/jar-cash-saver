@@ -8,7 +8,29 @@ function fetchAccount() {
     coins: 50,
     monthlyIncome: 5000,
     monthlyExpenses: 2000,
-    monthlySaving: 1800
+    monthlySaving: 1800,
+    bankAccounts: [
+      {
+        name: "Banco Bradesco",
+        number: "0051",
+        account: "221340-3"
+      },
+      {
+        name: "Banco Santander",
+        number: "0238",
+        account: "753765-1"
+      }
+    ],
+    creditCards: [
+      {
+        name: "Credicard",
+        number: "5521 2098 0067 0478"
+      },
+      {
+        name: "American Express",
+        number: "5521 2098 0067 0478"
+      }
+    ]
   };
   saveAccount(account);
 }
@@ -170,7 +192,9 @@ function getTrophies() {
 function processMonthlyIncoming() {
   const account = getAccount();
   const jars = getJars();
-  account.currentValue = account.currentValue + account.monthlySaving;
+  const income = account.monthlySaving;
+  account.currentValue += income;
+  account.coins += Math.ceil(income / 5);
   saveAccount(account);
 
   checkAndUpdateCompletedJars(account, jars);
@@ -181,6 +205,7 @@ function processMonthlyIncoming() {
 
 export default {
   getAccount,
+  saveAccount,
   getJars,
   getJarById,
   createJar,
