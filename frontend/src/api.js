@@ -84,7 +84,7 @@ function createJar(
     throw Error("Valor mensal necessário excede seu valor disponível mensal");
   }
   jars.push({
-    id: jars.length == 0 ? 1 : jars[jars.length].id + 1,
+    id: jars.length == 0 ? 1 : jars[jars.length - 1].id + 1,
     currentValue: account.currentValue * fraction,
     name,
     targetValue,
@@ -109,7 +109,7 @@ function calculateAvailableFraction(jars) {
 }
 
 function calculateFraction(targetValue, monthlySaving, dueDate) {
-  const monthsToDueDate = differenceInMonths(new Date(), dueDate);
+  const monthsToDueDate = differenceInMonths(Date.parse(dueDate), new Date());
   const valuePerMonth = targetValue / monthsToDueDate;
   return valuePerMonth / monthlySaving;
 }

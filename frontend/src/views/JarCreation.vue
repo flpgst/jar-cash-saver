@@ -12,6 +12,7 @@
     <v-row class="d-flex justify-center">
       <v-col class="justify-self-center pa-0" cols="10">
         <v-text-field
+          v-model="name"
           label="Nome do jarro"
           placeholder="Jarro da felicidade =D"
           dense
@@ -46,6 +47,7 @@
     <v-row class="d-flex justify-center">
       <v-col class="justify-self-center pa-0" cols="10">
         <v-text-field
+          v-model="targetValue"
           label="Quanto precisamos para alcançar o objetivo?"
           dense
           placeholder="$$$$$$$$"
@@ -83,13 +85,19 @@
     </v-row>
     <v-row class="text-center">
       <v-col cols="12">
-        <v-btn rounded depressed dark color="#00a857">Criar jarro</v-btn>
+        <v-btn @click="createJar" rounded depressed dark color="#00a857">
+          Criar jarro
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import api from "../api";
+
+const colors = ["blue", "green", "pink", "cyan", "orange"];
+
 export default {
   props: {
     id: String
@@ -98,7 +106,9 @@ export default {
     date: new Date().toISOString().substr(0, 10),
     dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
     modal: false,
-    color: null
+    name: "",
+    color: null,
+    targetValue: null
   }),
   computed: {
     computedDateFormatted() {
@@ -127,6 +137,16 @@ export default {
 
       const [day, month, year] = date.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    },
+    createJar() {
+      api.createJar(
+        this.name,
+        this.targetValue,
+        colors[this.color],
+        this.date,
+        false,
+        true
+      );
     }
   }
 };
