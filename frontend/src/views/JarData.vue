@@ -97,8 +97,8 @@ export default {
     },
     getLockIcon() {
       return this.jar.status === "LOCKED"
-          ? "mdi-lock"
-          : "mdi-exclamation-thick";
+        ? "mdi-lock"
+        : "mdi-exclamation-thick";
     },
     editing() {
       return true;

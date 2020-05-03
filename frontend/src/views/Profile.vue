@@ -21,7 +21,7 @@
             >Contas Bancárias</v-subheader
           >
           <v-list-item
-            v-for="(bankaccount, i) in bankaccounts"
+            v-for="(bankaccount, i) in account.bankAccounts"
             :key="i"
             class="mt-0"
           >
@@ -39,7 +39,7 @@
       <v-col cols="2">
         <v-tooltip top>
           <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on" @click="addBankAccount = true">
+            <v-btn icon v-on="on" @click="modalBankAccount = true">
               <v-icon color="#6dd400">mdi-plus-circle</v-icon>
             </v-btn>
           </template>
@@ -52,7 +52,7 @@
             class="body-1 font-weight-bold black--text align-end px-0"
             >Cartões de crédito</v-subheader
           >
-          <v-list-item v-for="(creditcard, i) in creditcards" :key="i">
+          <v-list-item v-for="(creditcard, i) in account.creditCards" :key="i">
             <v-list-item-content class="py-0">
               <v-list-item-title v-html="creditcard.name" />
               <v-list-item-subtitle v-html="creditcard.number" />
@@ -63,7 +63,7 @@
       <v-col cols="2">
         <v-tooltip top>
           <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on" @click="addCreditCard = true">
+            <v-btn icon v-on="on" @click="modalCreditCard = true">
               <v-icon color="#6dd400">mdi-plus-circle</v-icon>
             </v-btn>
           </template>
@@ -81,30 +81,14 @@
         <cost-chart class="chart-height" />
       </v-col>
     </v-row>
-    <v-dialog v-model="addBankAccount">
+    <v-dialog v-model="modalBankAccount">
       <v-card flat class="text-center py-3">
-        <add-bank-account />
-        <v-btn
-          rounded
-          depressed
-          dark
-          color="#00a857"
-          @click="addBankAccount = false"
-          >Conectar</v-btn
-        >
+        <add-bank-account @onSubmit="addBankAccount" />
       </v-card>
     </v-dialog>
-    <v-dialog v-model="addCreditCard">
+    <v-dialog v-model="modalCreditCard">
       <v-card flat class="text-center py-3">
-        <add-credit-card />
-        <v-btn
-          rounded
-          depressed
-          dark
-          color="#00a857"
-          @click="addCreditCard = false"
-          >Conectar</v-btn
-        >
+        <add-credit-card @onSubmit="addCreditCard" />
       </v-card>
     </v-dialog>
   </v-container>
@@ -120,6 +104,8 @@ export default {
   name: "connect-acconts",
   mounted() {
     this.account = api.getAccount();
+    this.bankAccounts = this.account.bankAccounts;
+    this.creditCards = this.account.creditCards;
   },
   components: {
     CostChart,
@@ -127,36 +113,30 @@ export default {
     AddCreditCard
   },
   data: () => ({
-    addCreditCard: false,
-    addBankAccount: false,
+    modalCreditCard: false,
+    modalBankAccount: false,
     account: {
-      name: ""
+      name: "",
+      currentValue: 0.0,
+      creditCards: [],
+      bankAccounts: []
+    }
+  }),
+  methods: {
+    addCreditCard(creditCard) {
+      this.modalCreditCard = false;
+      this.account.creditCards = [...this.creditCards, creditCard];
+      api.saveAccount(this.account);
     },
-    creditcards: [
-      {
-        name: "Credicard",
-        number: "5521209800670478"
-      },
-      {
-        name: "American Express",
-        number: "5521209800670478"
-      }
-    ],
-    bankaccounts: [
-      {
-        name: "Banco Bradesco",
-        number: "0051",
-        account: "221340-3"
-      },
-      {
-        name: "Banco Santander",
-        number: "0238",
-        account: "753765-1"
-      }
-    ]
-  })
+    addBankAccount(bankAccount) {
+      this.modalBankAccount = false;
+      this.account.bankAccounts = [...this.bankAccounts, bankAccount];
+      api.saveAccount(this.account);
+    }
+  }
 };
 </script>
+
 <style scoped>
 .chart-height {
   height: 150px;
