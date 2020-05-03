@@ -61,6 +61,15 @@ const routes = [
       )
   },
   {
+    path: "/achievements-prizes",
+    name: "AchievementsPrizes",
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "achievements-prizes" */ "../views/AchievementsPrizes.vue"
+      )
+  },
+  {
     path: "/jars",
     name: "Jars",
     component: () => import(/* webpackChunkName: "jars" */ "../views/Jars.vue")
@@ -80,11 +89,13 @@ const routes = [
       import(/* webpackChunkName: "new-jar" */ "../views/JarCreation.vue")
   },
   {
-    path: "/jar-partners",
-    name: "JarPartners",
+    path: "/partners-prizes",
+    name: "JarPartnersPrizes",
     props: true,
     component: () =>
-      import(/* webpackChunkName: "jar-partners" */ "../views/JarPartners.vue")
+      import(
+        /* webpackChunkName: "partners-prizes" */ "../views/JarPartnersPrizes.vue"
+      )
   }
 ];
 

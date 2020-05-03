@@ -11,7 +11,7 @@
     <!-- Partners -->
     <v-row>
       <v-col v-for="(item, i) in items" :key="i" cols="6">
-        <v-card flat :href="item.url" target="_blank">
+        <v-card flat :to="item.to">
           <v-system-bar :color="item.color" height="10" />
           <v-container class="py-2">
             <v-img
@@ -31,18 +31,18 @@ export default {
     items: [
       {
         src: "burguer-king.jpg",
-        url: "http://cupons.burgerking.com.br",
+        to: "achievements-prizes",
         color: "#6dd400"
       },
       {
         src: "udacity.jpg",
-        url: "https://www.udacity.com/scholarships",
+        to: "achievements-prizes",
         color: "#e02020"
       },
 
       {
         src: "league-of-legends.jpg",
-        url: "http://br.leagueoflegends.com/pt-br/news/merch/",
+        to: "achievements-prizes",
         color: "#f7b500"
       }
     ]
