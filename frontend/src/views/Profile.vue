@@ -130,8 +130,7 @@ export default {
     addCreditCard: false,
     addBankAccount: false,
     account: {
-      name: "",
-      currentValue: 0.0
+      name: ""
     },
     creditcards: [
       {
