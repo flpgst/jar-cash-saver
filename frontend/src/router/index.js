@@ -12,6 +12,24 @@ const routes = [
       import(/* webpackChunkName: "initial" */ "../views/Initial.vue")
   },
   {
+    path: "/security-terms",
+    name: "SecurityTerms",
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "security-terms" */ "../views/SecurityTerms.vue"
+      )
+  },
+  {
+    path: "/connect-accounts",
+    name: "ConnectAccounts",
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "connect-accounts" */ "../views/ConnectAccounts.vue"
+      )
+  },
+  {
     path: "/",
     name: "Home",
     component: Home

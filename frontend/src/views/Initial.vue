@@ -13,7 +13,7 @@
         Comece conectando suas contas corrente e cartões de crédito
       </v-col>
       <v-col cols="12">
-        <v-btn rounded color="#f7b500" depressed to="connect-accounts">
+        <v-btn rounded color="#f7b500" depressed to="security-terms">
           Conectar
         </v-btn>
       </v-col>
