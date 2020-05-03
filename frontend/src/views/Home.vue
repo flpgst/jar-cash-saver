@@ -11,11 +11,16 @@
         cols="9"
         class=" py-0 align-self-center headline font-weight-black"
       >
-        R$ {{ account.currentValue.toFixed(2) }}
+        <span v-if="showCurrentValue"
+          >R$ {{ account.currentValue.toFixed(2) }}</span
+        >
+        <span v-else>-</span>
       </v-col>
       <v-col cols="auto" class="py-0 align-self-center">
-        <v-btn text fab small>
-          <v-icon>mdi-eye-outline</v-icon>
+        <v-btn text fab small @click="showCurrentValue = !showCurrentValue">
+          <v-icon
+            >{{ showCurrentValue ? "mdi-eye-outline" : "mdi-eye-off-outline" }}
+          </v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -80,6 +85,7 @@ export default {
   name: "Home",
 
   data: () => ({
+    showCurrentValue: true,
     account: {
       name: "",
       currentValue: 0.0
