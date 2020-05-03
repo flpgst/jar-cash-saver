@@ -42,19 +42,19 @@ export default {
     items: [
       {
         src: "havan-viajens.jpg",
-        to: "/jar-partners"
+        to: "/partners-prizes"
       },
       {
         src: "cvc.jpg",
-        to: "/jar-partners"
+        to: "/partners-prizes"
       },
       {
         src: "fly-tour.jpg",
-        to: "/jar-partners"
+        to: "/partners-prizes"
       },
       {
         src: "via-fly.jpg",
-        to: "/jar-partners"
+        to: "/partners-prizes"
       }
     ]
   })
