@@ -31,7 +31,7 @@
           :icon="getLockIcon(jar)"
           overlap
         >
-          <v-btn icon :to="`jar/${jar.id}`">
+          <v-btn icon :to="`jar/${jar.id}`" @click="getWarning(jar)">
             <v-icon size="40" :color="jar.color">{{ getIcon(jar) }}</v-icon>
           </v-btn>
         </v-badge>
@@ -43,11 +43,17 @@
         </p>
       </v-col>
     </v-row>
+    <v-dialog v-model="warning">
+      <v-card flat>
+        <complete-warning />
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import api from "../api";
+import completeWarning from "../components/JarCompleteWarning";
 
 export default {
   methods: {
@@ -60,11 +66,18 @@ export default {
     },
     getLockIcon(jar) {
       return jar.status === "LOCKED" ? "mdi-lock" : "mdi-exclamation-thick";
+    },
+    getWarning(jar) {
+      if (jar.status === "ACHIEVED") this.warning = true;
     }
   },
   data: () => ({
-    jars: []
+    jars: [],
+    warning: false
   }),
+  components: {
+    completeWarning
+  },
   mounted() {
     this.jars = api.getJars();
   }
