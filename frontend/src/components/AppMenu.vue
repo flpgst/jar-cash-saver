@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation background-color="#aeefaa" :value="activeBtn" app>
+  <v-bottom-navigation background-color="#B9FBAF" :value="activeBtn" app>
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
