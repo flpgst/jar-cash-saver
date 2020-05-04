@@ -32,13 +32,13 @@
     <v-row class="ma-0 d-flex justify-center">
       <v-col class="justify-self-center pa-0" cols="10">
         <v-text-field
-          :value="jar.targetValue"
+          v-model="targetValue"
           label="Meta estipulada"
           :readonly="editTargetValue"
           dense
           prefix="R$"
           :append-outer-icon="editableIcon(editTargetValue)"
-          @click:append-outer="editTargetValue = !editTargetValue"
+          @click:append-outer="toggleEditTargetValue"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -56,7 +56,7 @@
     <v-row class="ma-0 d-flex justify-center">
       <v-col class="justify-self-center pa-0" cols="10">
         <v-text-field
-          :value="jar.currentValue"
+          :value="jar.currentValue.toFixed(2)"
           label="Valor poupado até o momento"
           readonly
           dense
@@ -67,12 +67,12 @@
     <v-row class="ma-0 d-flex justify-center">
       <v-col class="justify-self-center pa-0" cols="10">
         <v-text-field
-          :value="format(parseISO(jar.dueDate), 'dd-MM-yyyy')"
+          v-model="dueDate"
           label="Data para atingir a meta"
           :readonly="editDueDate"
           dense
           :append-outer-icon="editableIcon(editDueDate)"
-          @click:append-outer="editDueDate = !editDueDate"
+          @click:append-outer="toggleEditDueDate"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -97,6 +97,8 @@ export default {
     CompleteWarning
   },
   data: () => ({
+    targetValue: "",
+    dueDate: "",
     editTargetValue: true,
     editDueDate: true,
     account: null,
@@ -165,6 +167,24 @@ export default {
     },
     editableIcon(editable) {
       return editable ? "mdi-pencil" : "mdi-content-save";
+    },
+    toggleEditTargetValue() {
+      if (!this.editTargetValue) {
+        api.saveJar({ ...this.jar, targetValue: parseFloat(this.targetValue) });
+      }
+      this.editTargetValue = !this.editTargetValue;
+    },
+    toggleEditDueDate() {
+      if (!this.editDueDate) {
+        const dateParts = this.dueDate.split("/");
+        const newDueDate = new Date(
+          dateParts[2],
+          parseInt(dateParts[1]) - 1,
+          dateParts[0]
+        );
+        api.saveJar({ ...this.jar, dueDate: newDueDate });
+      }
+      this.editDueDate = !this.editDueDate;
     }
   },
   mounted() {
@@ -172,6 +192,12 @@ export default {
     this.account = api.getAccount();
     this.jar = api.getJarById(id);
     this.getWarning(this.jar.status, false);
+    this.targetValue = this.jar.targetValue
+      ? this.jar.targetValue.toFixed(2)
+      : "";
+    this.dueDate = this.jar.dueDate
+      ? format(parseISO(this.jar.dueDate), "dd/MM/yyyy")
+      : "";
   }
 };
 </script>

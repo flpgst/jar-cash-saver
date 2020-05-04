@@ -7,7 +7,7 @@
 
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-badge bottom :content="coins" overlap>
+          <v-badge bottom left :content="coins" overlap>
             <v-btn icon v-on="on" to="achievements">
               <v-icon color="yellow darken-3"
                 >mdi-circle-multiple-outline</v-icon

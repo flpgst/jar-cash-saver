@@ -89,11 +89,6 @@ function getJars() {
   return JSON.parse(localStorage.jars);
 }
 
-function getActiveJars() {
-  const jars = getJars();
-  return jars.filter(jar => jar.status !== "COMPLETED");
-}
-
 function getJarById(id) {
   const jars = getJars();
   return jars.find(jar => jar.id === id);
@@ -102,7 +97,7 @@ function getJarById(id) {
 function saveJar(newJar) {
   const jars = getJars();
   const jarIndex = jars.findIndex(jar => jar.id === newJar.id);
-  jars[jarIndex] = newJar;
+  jars[jarIndex] = { ...newJar };
   saveJars(jars);
 }
 
@@ -129,7 +124,7 @@ function createJar(
     throw Error("Valor mensal necessário excede seu valor disponível mensal");
   }
   jars.push({
-    id: jars.length == 0 ? 1 : jars[jars.length - 1].id + 1,
+    id: jars.length + 1,
     currentValue: account.currentValue * fraction,
     name,
     targetValue,
@@ -142,10 +137,7 @@ function createJar(
     yieldType: "ADVANCED",
     history: []
   });
-  checkAndUpdateCompletedJars(account, jars);
-  adjustNonGoalJarFractions(jars);
-  updateActiveJarValues(account, jars, null);
-  saveJars(jars);
+  handleJarUpdate(account, jars);
 }
 
 function calculateAvailableFraction(jars) {
@@ -183,6 +175,15 @@ function adjustNonGoalJarFractions(jars) {
   for (let jar of jarsToAdjust) {
     jar.fraction = fraction;
   }
+}
+
+function handleJarUpdate(account, jars, referenceDate = null) {
+  const activeJars = jars.filter(jar => jar.status !== "COMPLETED");
+  const completedJars = jars.filter(jar => jar.status === "COMPLETED");
+  checkAndUpdateCompletedJars(account, activeJars);
+  adjustNonGoalJarFractions(activeJars);
+  updateActiveJarValues(account, activeJars, referenceDate);
+  saveJars([...activeJars, ...completedJars]);
 }
 
 function updateActiveJarValues(account, jars, referenceDate = null) {
@@ -230,16 +231,12 @@ function getTrophies() {
 
 function processMonthlyIncoming(referenceDate) {
   const account = getAccount();
-  const jars = getActiveJars();
+  const jars = getJars();
   const income = account.monthlySaving;
   account.currentValue += income;
   account.coins += Math.ceil(income / 10);
   saveAccount(account);
-
-  checkAndUpdateCompletedJars(account, jars);
-  adjustNonGoalJarFractions(jars);
-  updateActiveJarValues(account, jars, referenceDate);
-  saveJars(jars);
+  handleJarUpdate(account, jars, referenceDate);
 }
 
 export default {
