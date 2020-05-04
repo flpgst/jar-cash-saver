@@ -29,9 +29,7 @@
         <v-card flat to="tips">
           <v-row class="ma-0">
             <v-avatar size="75" class="ml-2 align-self-center" tile>
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
-              ></v-img>
+              <v-img><tips-img /></v-img>
             </v-avatar>
             <v-col class="pa-0 title-color">
               <v-card-title class="headline">
@@ -54,9 +52,9 @@
         <v-card flat to="achievements">
           <v-row class="ma-0">
             <v-avatar size="75" class="ml-2 align-self-center" tile>
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
-              ></v-img>
+              <v-img>
+                <achievements-img />
+              </v-img>
             </v-avatar>
             <v-col class="pa-0 title-color">
               <v-card-title class="headline">
@@ -80,10 +78,15 @@
 
 <script>
 import api from "../api";
+import TipsImg from "../components/images/Tips";
+import AchievementsImg from "../components/images/Achievements";
 
 export default {
   name: "Home",
-
+  components: {
+    TipsImg,
+    AchievementsImg
+  },
   data: () => ({
     showCurrentValue: true,
     account: {

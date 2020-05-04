@@ -1,13 +1,10 @@
 <template>
   <v-container>
-    <v-row class="d-flex justify-center">
-      <v-col
-        cols="12"
-        class="headline font-weight-black d-flex justify-center pb-0"
-      >
+    <v-row class="text-center">
+      <v-col cols="12" class="headline font-weight-black pb-0">
         Nossos parceiros
       </v-col>
-      <v-col cols="12" class="font-weight-medium d-flex justify-center">
+      <v-col cols="12" class="font-weight-medium">
         Clique e veja dicas valiosas de educação financeira.
       </v-col>
     </v-row>

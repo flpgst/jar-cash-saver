@@ -20,7 +20,7 @@
       <v-tooltip top>
         <template v-slot:activator="{ on }">
           <v-btn to="/jars" v-on="on">
-            <v-icon>mdi-currency-usd-circle-outline</v-icon>
+            <v-icon>$vuetify.icons.jarmenu</v-icon>
           </v-btn>
         </template>
         <span>Meus Jarros</span>
