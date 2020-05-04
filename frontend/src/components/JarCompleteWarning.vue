@@ -12,8 +12,6 @@
         você?
       </v-col>
     </v-row>
-
-    <!-- Partners -->
     <v-row>
       <v-col v-for="(item, i) in items" :key="i" cols="6">
         <v-card outlined flat :to="item.to">
@@ -24,7 +22,6 @@
           </v-container>
         </v-card>
       </v-col>
-      <!--  -->
     </v-row>
   </v-container>
 </template>

@@ -82,6 +82,13 @@
           </v-date-picker>
         </v-dialog>
       </v-col>
+      <v-col cols="10" class="pa-0">
+        <v-switch
+          v-model="shared"
+          color="#f7b500"
+          label="Compartilhar esse objetivo"
+        />
+      </v-col>
     </v-row>
     <v-row class="text-center">
       <v-col cols="12">
@@ -90,11 +97,17 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-dialog v-model="dialog">
+      <v-card flat>
+        <create-warning />
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import api from "../api";
+import CreateWarning from "../components/JarCreatedWarning";
 
 const colors = ["blue", "green", "pink", "cyan", "orange"];
 
@@ -102,13 +115,18 @@ export default {
   props: {
     id: String
   },
+  components: {
+    CreateWarning
+  },
   data: vm => ({
     date: new Date().toISOString().substr(0, 10),
     dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
     modal: false,
     name: "",
     color: null,
-    targetValue: null
+    targetValue: null,
+    dialog: false,
+    shared: false
   }),
   computed: {
     computedDateFormatted() {
@@ -145,12 +163,13 @@ export default {
           parseFloat(this.targetValue),
           colors[this.color],
           this.date,
-          false,
+          this.shared,
           true
         );
-        this.$router.push("/jars");
+        this.dialog = true;
       } catch (error) {
         console.log(error);
+        this.dialog = false;
       }
     }
   }

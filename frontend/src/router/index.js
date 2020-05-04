@@ -96,6 +96,15 @@ const routes = [
       import(
         /* webpackChunkName: "partners-prizes" */ "../views/JarPartnersPrizes.vue"
       )
+  },
+  {
+    path: "/account-statement",
+    name: "AccountStatement",
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "account-statement" */ "../views/AccountStatement.vue"
+      )
   }
 ];
 

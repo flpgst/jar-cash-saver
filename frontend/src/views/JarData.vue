@@ -59,7 +59,7 @@
     <v-row class="ma-0 d-flex justify-center">
       <v-col class="justify-self-center pa-0" cols="10">
         <v-text-field
-          :value="jar.dueDate"
+          :value="format(parseISO(jar.dueDate), 'dd-MM-yyyy')"
           label="Data para atingir a meta"
           :readonly="editDueDate"
           dense
@@ -73,6 +73,7 @@
 
 <script>
 import api from "../api";
+import { format, parseISO } from "date-fns";
 
 export default {
   props: {
@@ -85,6 +86,8 @@ export default {
     jar: null
   }),
   methods: {
+    format,
+    parseISO,
     getMonthlyValue() {
       return (this.account.monthlySaving * this.jar.fraction).toFixed(2);
     },
