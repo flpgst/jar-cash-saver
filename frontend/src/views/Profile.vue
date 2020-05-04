@@ -71,6 +71,14 @@
         </v-tooltip>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12" class="d-flex justify-center">
+        <v-btn text small color="#b620e0" size="x-small" to="account-statement">
+          Veja seu extrato aqui
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
     <v-row class="d-flex justify-center">
       <v-col cols="10" class="py-0">
         <v-subheader class="body-1 font-weight-bold black--text align-end px-0"
