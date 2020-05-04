@@ -55,6 +55,14 @@ export default {
     submit() {
       this.$emit("onSubmit", this.card);
     }
+  },
+  watch: {
+    ["card"]: {
+      handler: function(val) {
+        this.$emit("onChange", val);
+      },
+      deep: true
+    }
   }
 };
 </script>

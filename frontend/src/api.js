@@ -9,33 +9,13 @@ const YIELD_RATE = {
 function fetchAccount() {
   const account = {
     name: "Marcela",
-    currentValue: 3345.7,
+    currentValue: 2345.7,
     coins: 50,
     monthlyIncome: 5000,
     monthlyExpenses: 2000,
     monthlySaving: 1800,
-    bankAccounts: [
-      {
-        name: "Banco Bradesco",
-        number: "0051",
-        account: "221340-3"
-      },
-      {
-        name: "Banco Santander",
-        number: "0238",
-        account: "753765-1"
-      }
-    ],
-    creditCards: [
-      {
-        name: "Credicard",
-        number: "5521 2098 0067 0478"
-      },
-      {
-        name: "American Express",
-        number: "5521 2098 0067 0478"
-      }
-    ]
+    bankAccounts: [],
+    creditCards: []
   };
   saveAccount(account);
 }

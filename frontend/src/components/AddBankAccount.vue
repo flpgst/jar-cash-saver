@@ -78,6 +78,14 @@ export default {
         !!this.bank.number && !!this.bank.account && !!this.bank.name
       );
     }
+  },
+  watch: {
+    bank: {
+      handler: function(val) {
+        this.$emit("onChange", val);
+      },
+      deep: true
+    }
   }
 };
 </script>
