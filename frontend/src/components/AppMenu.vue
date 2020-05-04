@@ -8,7 +8,7 @@
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <v-btn to="/" v-on="on">
+          <v-btn to="/" icon color="primary" v-on="on">
             <v-icon>mdi-home-outline</v-icon>
           </v-btn>
         </template>
@@ -19,8 +19,8 @@
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <v-btn to="/jars" v-on="on">
-            <v-icon>$vuetify.icons.jarmenu</v-icon>
+          <v-btn to="/jars" icon color="primary" v-on="on">
+            <v-icon size="35">$vuetify.icons.jarmenu</v-icon>
           </v-btn>
         </template>
         <span>Meus Jarros</span>
@@ -30,7 +30,7 @@
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <v-btn to="/profile" v-on="on">
+          <v-btn icon color="primary" to="/profile" v-on="on">
             <v-icon>mdi-account-outline</v-icon>
           </v-btn>
         </template>
