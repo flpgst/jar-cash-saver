@@ -15,10 +15,10 @@
                   >.</v-list-item-title
                 >
                 <v-list-item-title>
-                  Saldo do dia
+                  Saldo - {{ transaction.jar }}
                 </v-list-item-title>
                 <v-list-item-title>
-                  {{ transaction.type }}
+                  {{ transaction.description }}
                 </v-list-item-title>
               </v-list-item-content>
               <v-list-item-action>
@@ -27,14 +27,16 @@
                 </v-list-item-action-text>
 
                 <v-list-item-action-text class="text--primary">
-                  R$ {{ transaction.currentDateValue }}
+                  R$ {{ transaction.previousValue.toFixed(2) }}
                 </v-list-item-action-text>
 
                 <v-list-item-action-text
-                  :class="transaction.value > 0 ? 'green--text' : 'red--text'"
+                  :class="
+                    transaction.incomeValue > 0 ? 'green--text' : 'red--text'
+                  "
                   class="text--accent-4 font-weight-bold"
                 >
-                  R$ {{ transaction.value }}
+                  R$ {{ transaction.incomeValue.toFixed(2) }}
                 </v-list-item-action-text>
               </v-list-item-action>
             </v-list-item>
@@ -51,40 +53,14 @@
 </template>
 
 <script>
+import api from "../api";
+
 export default {
   data: () => ({
-    transactions: [
-      {
-        date: "14/04/2020",
-        currentDateValue: 453.56,
-        type: "Rendimento",
-        value: 1.89
-      },
-      {
-        date: "15/04/2020",
-        currentDateValue: 455.45,
-        type: "Rendimento",
-        value: 0.91
-      },
-      {
-        date: "16/04/2020",
-        currentDateValue: 456.36,
-        type: "Rendimento",
-        value: 0.87
-      },
-      {
-        date: "18/04/2020",
-        currentDateValue: 457.23,
-        type: "Resgate",
-        value: -200.0
-      },
-      {
-        date: "19/04/2020",
-        currentDateValue: 257.23,
-        type: "Rendimento",
-        value: 0.32
-      }
-    ]
-  })
+    transactions: []
+  }),
+  mounted() {
+    this.transactions = api.getAccountTransactions();
+  }
 };
 </script>
