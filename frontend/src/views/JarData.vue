@@ -7,15 +7,23 @@
     </v-row>
     <v-row>
       <v-col cols="12" class="text-center">
-        <v-badge color="#f7b500" :icon="getLockIcon()" overlap>
-          <v-tooltip color="#f7b500" right>
+        <v-badge :color="getBadgeColor()" :icon="getLockIcon()" overlap>
+          <v-tooltip right>
             <template v-slot:activator="{ on }">
-              <v-icon v-on="on" size="80" :color="jar.color">{{
-                getIcon()
-              }}</v-icon>
+              <v-icon
+                @click="getWarning(jar.status, true)"
+                v-on="on"
+                size="80"
+                :color="jar.color"
+                >{{ getIcon() }}</v-icon
+              >
             </template>
-            <span class="caption">
+            <span class="caption" v-if="jar.status === 'LOCKED'">
               O cadeado abrirá apenas quando o jarro estiver 70% completo
+            </span>
+            <span v-else
+              >Seu jarro está completo! Clique e veja as promoções que
+              preparamos!
             </span>
           </v-tooltip>
         </v-badge>
@@ -68,26 +76,44 @@
         ></v-text-field>
       </v-col>
     </v-row>
+    <v-dialog v-model="warning">
+      <v-card flat>
+        <complete-warning :jar="jar" />
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import api from "../api";
+import CompleteWarning from "../components/JarCompleteWarning";
 import { format, parseISO } from "date-fns";
 
 export default {
   props: {
     id: String
   },
+  components: {
+    CompleteWarning
+  },
   data: () => ({
     editTargetValue: true,
     editDueDate: true,
     account: null,
-    jar: null
+    jar: null,
+    warning: false
   }),
   methods: {
     format,
     parseISO,
+    getWarning(status, clicked) {
+      if (
+        (status === "UNLOCKED" && !clicked) ||
+        (status !== "UOCKED" && clicked)
+      ) {
+        this.warning = true;
+      }
+    },
     getMonthlyValue() {
       return (this.account.monthlySaving * this.jar.fraction).toFixed(2);
     },
@@ -99,9 +125,40 @@ export default {
       }
     },
     getLockIcon() {
-      return this.jar.status === "LOCKED"
-        ? "mdi-lock"
-        : "mdi-exclamation-thick";
+      let icon;
+      switch (this.jar.status) {
+        case "LOCKED":
+          icon = "mdi-lock";
+          break;
+        case "UNLOCKED":
+          icon = "mdi-exclamation-thick";
+          break;
+        case "ACHIEVED":
+          icon = "mdi-lock-open-variant";
+          break;
+        case "COMPLETED":
+          icon = "mdi-check-bold";
+          break;
+      }
+      return icon;
+    },
+    getBadgeColor() {
+      let color;
+      switch (this.jar.status) {
+        case "LOCKED":
+          color = "#f7b500";
+          break;
+        case "UNLOCKED":
+          color = "#da3d37";
+          break;
+        case "ACHIEVED":
+          color = "blue";
+          break;
+        case "COMPLETED":
+          color = "#00a857";
+          break;
+      }
+      return color;
     },
     editing() {
       return true;
@@ -114,6 +171,7 @@ export default {
     const id = parseInt(this.id);
     this.account = api.getAccount();
     this.jar = api.getJarById(id);
+    this.getWarning(this.jar.status, false);
   }
 };
 </script>

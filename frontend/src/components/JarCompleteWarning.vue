@@ -14,7 +14,7 @@
     </v-row>
     <v-row>
       <v-col v-for="(item, i) in items" :key="i" cols="6">
-        <v-card outlined flat :to="item.to">
+        <v-card outlined flat @click="changeJarStatus()" :to="item.to">
           <v-container class="py-2">
             <v-img
               :src="require(`../assets/partners/jars/${item.src}`)"
@@ -31,6 +31,9 @@ import api from "../api";
 export default {
   mounted() {
     this.account = api.getAccount();
+  },
+  props: {
+    jar: Object
   },
   data: () => ({
     account: {
@@ -54,6 +57,14 @@ export default {
         to: "/partners-prizes"
       }
     ]
-  })
+  }),
+  methods: {
+    changeJarStatus() {
+      if (this.jar.status === "UNLOCKED") {
+        const jar = { ...this.jar, status: "ACHIEVED" };
+        api.saveJar(jar);
+      }
+    }
+  }
 };
 </script>
