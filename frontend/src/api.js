@@ -100,8 +100,10 @@ function getJarById(id) {
 }
 
 function saveJar(newJar) {
-  const jars = getJars().filter(jar => jar.id !== newJar.id);
-  saveJars([newJar, ...jars]);
+  const jars = getJars();
+  const jarIndex = jars.findIndex(jar => jar.id === newJar.id);
+  jars[jarIndex] = newJar;
+  saveJars(jars);
 }
 
 function saveJars(jars) {
@@ -164,7 +166,7 @@ function calculateFraction(targetValue, monthlySaving, dueDate) {
 
 function checkAndUpdateCompletedJars(account, jars) {
   for (let jar of jars) {
-    const fractionValue = (account.currentValue * jar.fraction).toFixed(2);
+    const fractionValue = account.currentValue * jar.fraction;
     if (jar.dueDate && fractionValue >= jar.targetValue) {
       jar.currentValue = jar.targetValue;
       jar.status = "COMPLETED";
@@ -186,14 +188,14 @@ function adjustNonGoalJarFractions(jars) {
 function updateActiveJarValues(account, jars, referenceDate = null) {
   const activeJars = jars.filter(jar => jar.status !== "COMPLETED");
   for (let jar of activeJars) {
-    const fractionValue = (account.currentValue * jar.fraction).toFixed(2);
+    const fractionValue = account.currentValue * jar.fraction;
     const yieldRate = YIELD_RATE[jar.yieldType];
-    const yieldValue = (yieldRate * jar.currentValue).toFixed(2);
+    const yieldValue = yieldRate * jar.currentValue;
     if (referenceDate) {
       jar.history.push({
         date: referenceDate.toLocaleString(),
         previousValue: jar.currentValue.toFixed(2),
-        incomeValue: yieldValue,
+        incomeValue: yieldValue.toFixed(2),
         description: "Rendimentos"
       });
       jar.history.push({
