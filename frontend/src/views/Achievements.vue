@@ -22,7 +22,7 @@
         <v-btn
           text
           small
-          color="#b620e0"
+          color="primary"
           size="x-small"
           to="achievements-partners"
         >

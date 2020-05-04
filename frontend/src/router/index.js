@@ -14,7 +14,6 @@ const routes = [
   {
     path: "/security-terms",
     name: "SecurityTerms",
-    props: true,
     component: () =>
       import(
         /* webpackChunkName: "security-terms" */ "../views/SecurityTerms.vue"
@@ -23,7 +22,6 @@ const routes = [
   {
     path: "/connect-accounts",
     name: "ConnectAccounts",
-    props: true,
     component: () =>
       import(
         /* webpackChunkName: "connect-accounts" */ "../views/ConnectAccounts.vue"
@@ -37,7 +35,6 @@ const routes = [
   {
     path: "/profile",
     name: "Profile",
-    props: true,
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/Profile.vue")
   },
@@ -63,7 +60,6 @@ const routes = [
   {
     path: "/achievements-prizes",
     name: "AchievementsPrizes",
-    props: true,
     component: () =>
       import(
         /* webpackChunkName: "achievements-prizes" */ "../views/AchievementsPrizes.vue"
@@ -84,23 +80,29 @@ const routes = [
   {
     path: "/new-jar",
     name: "JarCreation",
-    props: true,
     component: () =>
       import(/* webpackChunkName: "new-jar" */ "../views/JarCreation.vue")
   },
   {
     path: "/partners-prizes",
     name: "JarPartnersPrizes",
-    props: true,
     component: () =>
       import(
         /* webpackChunkName: "partners-prizes" */ "../views/JarPartnersPrizes.vue"
       )
   },
   {
+    path: "/jar-statement/:id",
+    name: "JarStatement",
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "jar-statement" */ "../views/JarStatement.vue"
+      )
+  },
+  {
     path: "/account-statement",
     name: "AccountStatement",
-    props: true,
     component: () =>
       import(
         /* webpackChunkName: "account-statement" */ "../views/AccountStatement.vue"

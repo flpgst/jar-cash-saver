@@ -102,6 +102,7 @@
         <create-warning />
       </v-card>
     </v-dialog>
+    <v-snackbar top color="red" v-model="snackbar">{{ error }}</v-snackbar>
   </v-container>
 </template>
 
@@ -126,7 +127,9 @@ export default {
     color: null,
     targetValue: null,
     dialog: false,
-    shared: false
+    shared: false,
+    snackbar: false,
+    error: null
   }),
   computed: {
     computedDateFormatted() {
@@ -168,7 +171,8 @@ export default {
         );
         this.dialog = true;
       } catch (error) {
-        console.log(error);
+        this.error = error;
+        this.snackbar = true;
         this.dialog = false;
       }
     }

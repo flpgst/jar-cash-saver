@@ -78,11 +78,26 @@
         ></v-text-field>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12" class="d-flex justify-center">
+        <v-btn
+          text
+          small
+          color="primary"
+          size="x-small"
+          :to="`/jar-statement/${jar.id}`"
+        >
+          Veja os rendimentos deste jarro
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
     <v-dialog v-model="warning">
       <v-card flat>
         <complete-warning :jar="jar" />
       </v-card>
     </v-dialog>
+    <v-snackbar top color="red" v-model="snackbar">{{ error }}</v-snackbar>
   </v-container>
 </template>
 
@@ -105,7 +120,9 @@ export default {
     editDueDate: true,
     account: null,
     jar: null,
-    warning: false
+    warning: false,
+    error: null,
+    snackbar: false
   }),
   methods: {
     format,
@@ -193,7 +210,15 @@ export default {
     },
     toggleEditTargetValue() {
       if (!this.editTargetValue) {
-        api.saveJar({ ...this.jar, targetValue: parseFloat(this.targetValue) });
+        try {
+          api.saveJar({
+            ...this.jar,
+            targetValue: parseFloat(this.targetValue)
+          });
+        } catch (error) {
+          this.error = error;
+          this.snackbar = true;
+        }
         this.loadJarData();
       }
       this.editTargetValue = !this.editTargetValue;
@@ -206,7 +231,12 @@ export default {
           parseInt(dateParts[1]) - 1,
           dateParts[0]
         );
-        api.saveJar({ ...this.jar, dueDate: newDueDate });
+        try {
+          api.saveJar({ ...this.jar, dueDate: newDueDate });
+        } catch (error) {
+          this.error = error;
+          this.snackbar = true;
+        }
         this.loadJarData();
       }
       this.editDueDate = !this.editDueDate;
