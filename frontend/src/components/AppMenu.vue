@@ -1,5 +1,10 @@
 <template>
-  <v-bottom-navigation background-color="#B9FBAF" :value="activeBtn" app>
+  <v-bottom-navigation
+    v-show="logged"
+    background-color="#B9FBAF"
+    :value="activeBtn"
+    app
+  >
     <v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
@@ -41,6 +46,11 @@ export default {
     return {
       activeBtn: 1
     };
+  },
+  computed: {
+    logged() {
+      return this.$store.state.logged;
+    }
   }
 };
 </script>

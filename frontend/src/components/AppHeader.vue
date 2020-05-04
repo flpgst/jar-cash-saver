@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="logged">
     <v-app-bar color="transparent" flat dense>
       <v-toolbar-title class="font-weight-black primary--text"
         >PoupJar</v-toolbar-title
@@ -33,6 +33,12 @@ export default {
   mounted() {
     const account = api.getAccount();
     this.coins = account.coins;
+  },
+
+  computed: {
+    logged() {
+      return this.$store.state.logged;
+    }
   }
 };
 </script>

@@ -26,6 +26,9 @@
 
 <script>
 export default {
-  name: "Initial"
+  name: "Initial",
+  mounted() {
+    this.$store.commit("logout");
+  }
 };
 </script>

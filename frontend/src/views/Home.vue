@@ -94,6 +94,7 @@ export default {
 
   mounted() {
     this.account = api.getAccount();
+    this.$store.commit("login");
   }
 };
 </script>
