@@ -132,11 +132,17 @@ export default {
       return (this.account.monthlySaving * this.jar.fraction).toFixed(2);
     },
     getIcon() {
-      if (this.jar.currentValue === 0) {
-        return "mdi-cup-outline";
-      } else {
-        return "mdi-cup";
+      if (this.jar.status === "COMPLETED")
+        return `$vuetify.icons.jar${this.jar.color}full`;
+
+      if (
+        this.jar.targetValue &&
+        this.jar.currentValue < this.jar.targetValue * 0.1
+      ) {
+        return `$vuetify.icons.jar${this.jar.color}empty`;
       }
+
+      return `$vuetify.icons.jar${this.jar.color}half`;
     },
     getLockIcon() {
       let icon;

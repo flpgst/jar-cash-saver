@@ -59,11 +59,14 @@ import api from "../api";
 export default {
   methods: {
     getIcon(jar) {
-      if (jar.currentValue === 0) {
-        return "mdi-cup-outline";
-      } else {
-        return "mdi-cup";
+      if (jar.status === "COMPLETED")
+        return `$vuetify.icons.jar${jar.color}full`;
+
+      if (jar.targetValue && jar.currentValue < jar.targetValue * 0.1) {
+        return `$vuetify.icons.jar${jar.color}empty`;
       }
+
+      return `$vuetify.icons.jar${jar.color}half`;
     },
     getLockIcon(jar) {
       let icon;

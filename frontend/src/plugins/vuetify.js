@@ -10,21 +10,21 @@ import JarBlueEmpty from "../components/icons/jars/BlueEmpty";
 import JarBlueHalf from "../components/icons/jars/BlueHalf";
 import JarBlueFull from "../components/icons/jars/BlueFull";
 
-// import JarCyanEmpty from "../components/icons/jars/CyanEmpty";
-// import JarCyanHalf from "../components/icons/jars/CyanHalf";
-// import JarCyanfull from "../components/icons/jars/CyanFull";
+import JarCyanEmpty from "../components/icons/jars/CyanEmpty";
+import JarCyanHalf from "../components/icons/jars/CyanHalf";
+import JarCyanFull from "../components/icons/jars/CyanFull";
 
-// import JarGreenEmpty from "../components/icons/jars/GreenEmpty";
-// import JarGreenHalf from "../components/icons/jars/GreenHalf";
-// import JarGreenfull from "../components/icons/jars/GreenFull";
+import JarGreenEmpty from "../components/icons/jars/GreenEmpty";
+import JarGreenHalf from "../components/icons/jars/GreenHalf";
+import JarGreenFull from "../components/icons/jars/GreenFull";
 
-// import JarOrangeEmpty from "../components/icons/jars/OrangeEmpty";
-// import JarOrangeHalf from "../components/icons/jars/OrangeHalf";
-// import JarOrangefull from "../components/icons/jars/OrangeFull";
+import JarOrangeEmpty from "../components/icons/jars/OrangeEmpty";
+import JarOrangeHalf from "../components/icons/jars/OrangeHalf";
+import JarOrangeFull from "../components/icons/jars/OrangeFull";
 
-// import JarPinkEmpty from "../components/icons/jars/PinkEmpty";
-// import JarPinkHalf from "../components/icons/jars/PinkHalf";
-// import JarPinkfull from "../components/icons/jars/PinkFull";
+import JarPinkEmpty from "../components/icons/jars/PinkEmpty";
+import JarPinkHalf from "../components/icons/jars/PinkHalf";
+import JarPinkFull from "../components/icons/jars/PinkFull";
 
 Vue.use(Vuetify);
 
@@ -45,18 +45,50 @@ export default new Vuetify({
       jarmenu: {
         component: JarMenu
       },
-      jars: {
-        blue: {
-          empty: {
-            component: JarBlueEmpty
-          },
-          half: {
-            component: JarBlueHalf
-          },
-          full: {
-            component: JarBlueFull
-          }
-        }
+      jarblueempty: {
+        component: JarBlueEmpty
+      },
+      jarbluehalf: {
+        component: JarBlueHalf
+      },
+      jarbluefull: {
+        component: JarBlueFull
+      },
+      jarcyanempty: {
+        component: JarCyanEmpty
+      },
+      jarcyanhalf: {
+        component: JarCyanHalf
+      },
+      jarcyanfull: {
+        component: JarCyanFull
+      },
+      jargreenempty: {
+        component: JarGreenEmpty
+      },
+      jargreenhalf: {
+        component: JarGreenHalf
+      },
+      jargreenfull: {
+        component: JarGreenFull
+      },
+      jarorangeempty: {
+        component: JarOrangeEmpty
+      },
+      jarorangehalf: {
+        component: JarOrangeHalf
+      },
+      jarorangefull: {
+        component: JarOrangeFull
+      },
+      jarpinkempty: {
+        component: JarPinkEmpty
+      },
+      jarpinkhalf: {
+        component: JarPinkHalf
+      },
+      jarpinkfull: {
+        component: JarPinkFull
       }
     }
   },

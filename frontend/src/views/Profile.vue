@@ -54,7 +54,13 @@
           >
           <v-list-item v-for="(creditcard, i) in account.creditCards" :key="i">
             <v-list-item-content class="py-0">
-              <v-list-item-title v-html="creditcard.name" />
+              <v-list-item-title
+                v-html="
+                  creditcard.name === 'unknown'
+                    ? 'Bandeira não reconhecida'
+                    : credicard.name
+                "
+              />
               <v-list-item-subtitle v-html="creditcard.number" />
             </v-list-item-content>
           </v-list-item>

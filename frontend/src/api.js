@@ -39,7 +39,7 @@ function fetchJars() {
       currentValue: 167.28,
       name: "Reserva de emergência",
       fraction: 0.05,
-      color: "red",
+      color: "orange",
       shared: false,
       unlockable: false,
       status: "ACTIVE",
