@@ -9,7 +9,7 @@
       <v-col cols="12">
         <v-list two-line dense color="transparent">
           <template v-for="(transaction, index) in transactions">
-            <v-list-item :key="transaction.value + index">
+            <v-list-item :key="transaction.date + index">
               <v-list-item-content>
                 <v-list-item-title class="transparent--text"
                   >.</v-list-item-title
