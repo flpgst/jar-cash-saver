@@ -27,7 +27,7 @@
       >
         <v-badge
           v-if="jar.unlockable"
-          color="#f7b500"
+          :color="getBadgeColor(jar)"
           :icon="getLockIcon(jar)"
           overlap
         >
@@ -37,7 +37,7 @@
             overlap
             bottom
           >
-            <v-btn icon :to="`jar/${jar.id}`" @click="getWarning(jar)">
+            <v-btn icon :to="`jar/${jar.id}`">
               <v-icon size="40" :color="jar.color">{{ getIcon(jar) }}</v-icon>
             </v-btn>
           </v-badge>
@@ -50,17 +50,11 @@
         </p>
       </v-col>
     </v-row>
-    <v-dialog v-model="warning">
-      <v-card flat>
-        <complete-warning />
-      </v-card>
-    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import api from "../api";
-import completeWarning from "../components/JarCompleteWarning";
 
 export default {
   methods: {
@@ -72,19 +66,45 @@ export default {
       }
     },
     getLockIcon(jar) {
-      return jar.status === "LOCKED" ? "mdi-lock" : "mdi-exclamation-thick";
+      let icon;
+      switch (jar.status) {
+        case "LOCKED":
+          icon = "mdi-lock";
+          break;
+        case "UNLOCKED":
+          icon = "mdi-exclamation-thick";
+          break;
+        case "ACHIEVED":
+          icon = "mdi-lock-open-variant";
+          break;
+        case "COMPLETED":
+          icon = "mdi-check-bold";
+          break;
+      }
+      return icon;
     },
-    getWarning(jar) {
-      if (jar.status === "ACHIEVED") this.warning = true;
+    getBadgeColor(jar) {
+      let color;
+      switch (jar.status) {
+        case "LOCKED":
+          color = "#f7b500";
+          break;
+        case "UNLOCKED":
+          color = "#da3d37";
+          break;
+        case "ACHIEVED":
+          color = "blue";
+          break;
+        case "COMPLETED":
+          color = "#00a857";
+          break;
+      }
+      return color;
     }
   },
   data: () => ({
-    jars: [],
-    warning: false
+    jars: []
   }),
-  components: {
-    completeWarning
-  },
   mounted() {
     this.jars = api.getJars();
   }
