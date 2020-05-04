@@ -11,10 +11,10 @@
       <v-col cols="12" class="headline font-weight-black d-flex justify-center">
         <span class="align-self-center">
           <v-icon size="50" color="yellow darken-3"
-            >mdi-circle-multiple-outline</v-icon
+            >$vuetify.icons.coins</v-icon
           >
         </span>
-        <span class="align-self-center">
+        <span class="align-self-center pl-3">
           {{ coins }}
         </span>
       </v-col>

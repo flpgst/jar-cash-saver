@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuetify from "vuetify/lib";
 import pt from "vuetify/es5/locale/pt";
 import Coins from "../components/icons/Coins";
+import JarMenu from "../components/icons/JarMenu";
 
 Vue.use(Vuetify);
 
@@ -18,6 +19,9 @@ export default new Vuetify({
     values: {
       coins: {
         component: Coins
+      },
+      jarmenu: {
+        component: JarMenu
       }
     }
   },
