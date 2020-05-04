@@ -1,7 +1,9 @@
 <template>
   <div v-show="logged">
     <v-app-bar color="transparent" flat dense>
-      <v-toolbar-title>Nome/Logo do APP</v-toolbar-title>
+      <v-toolbar-title class="font-weight-black primary--text"
+        >PoupJar</v-toolbar-title
+      >
 
       <v-spacer></v-spacer>
 
@@ -9,9 +11,7 @@
         <template v-slot:activator="{ on }">
           <v-badge bottom left :content="coins" overlap>
             <v-btn icon v-on="on" to="achievements">
-              <v-icon color="yellow darken-3"
-                >mdi-circle-multiple-outline</v-icon
-              >
+              <v-icon>$vuetify.icons.coins</v-icon>
             </v-btn>
           </v-badge>
         </template>
@@ -30,7 +30,6 @@ export default {
   data: () => ({
     coins: 0
   }),
-
   mounted() {
     const account = api.getAccount();
     this.coins = account.coins;
