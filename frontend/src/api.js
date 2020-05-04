@@ -97,8 +97,25 @@ function getJarById(id) {
 function saveJar(newJar) {
   const jars = getJars();
   const jarIndex = jars.findIndex(jar => jar.id === newJar.id);
-  jars[jarIndex] = { ...newJar };
+  const availableFraction = calculateAvailableFraction(jars);
+  jars[jarIndex] = adjustValues(newJar, availableFraction);
   saveJars(jars);
+}
+
+function adjustValues(newJar, availableFraction) {
+  const account = getAccount();
+  const fraction =
+    newJar.dueDate != null
+      ? calculateFraction(
+          newJar.targetValue,
+          account.monthlySaving,
+          newJar.dueDate
+        )
+      : availableFraction;
+  if (fraction > availableFraction) {
+    throw Error("Valor mensal necessário excede seu valor disponível mensal");
+  }
+  return { ...newJar, fraction };
 }
 
 function saveJars(jars) {
