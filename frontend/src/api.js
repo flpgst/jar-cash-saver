@@ -1,8 +1,8 @@
 import { differenceInMonths } from "date-fns";
 
 const YIELD_RATE = {
-  DEFAULT: 0.3,
-  ADVANCED: 0.5
+  DEFAULT: 0.0033,
+  ADVANCED: 0.008
 };
 
 //mocked
@@ -198,7 +198,7 @@ function updateActiveJarValues(account, jars, referenceDate = null) {
       });
       jar.history.push({
         date: referenceDate.toLocaleString(),
-        previousValue: jar.currentValue.toFixed(2) + yieldValue,
+        previousValue: (jar.currentValue + yieldValue).toFixed(2),
         incomeValue: (fractionValue - jar.currentValue).toFixed(2),
         description: "Valor poupado"
       });
