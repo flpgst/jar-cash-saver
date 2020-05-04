@@ -100,7 +100,7 @@ function getJarById(id) {
 }
 
 function saveJar(newJar) {
-  const jars = getJars().filter(jar => jar.id !== jar.id);
+  const jars = getJars().filter(jar => jar.id !== newJar.id);
   saveJars([newJar, ...jars]);
 }
 
