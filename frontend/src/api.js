@@ -194,14 +194,14 @@ function updateActiveJarValues(account, jars, referenceDate = null) {
     if (referenceDate) {
       jar.history.push({
         date: referenceDate.toLocaleString(),
-        previousValue: jar.currentValue.toFixed(2),
-        incomeValue: yieldValue.toFixed(2),
+        previousValue: jar.currentValue,
+        incomeValue: yieldValue,
         description: "Rendimentos"
       });
       jar.history.push({
         date: referenceDate.toLocaleString(),
-        previousValue: (jar.currentValue + yieldValue).toFixed(2),
-        incomeValue: (fractionValue - jar.currentValue).toFixed(2),
+        previousValue: jar.currentValue + yieldValue,
+        incomeValue: fractionValue - jar.currentValue,
         description: "Valor poupado"
       });
     }
