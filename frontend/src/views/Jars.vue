@@ -31,9 +31,16 @@
           :icon="getLockIcon(jar)"
           overlap
         >
-          <v-btn icon :to="`jar/${jar.id}`" @click="getWarning(jar)">
-            <v-icon size="40" :color="jar.color">{{ getIcon(jar) }}</v-icon>
-          </v-btn>
+          <v-badge
+            :color="jar.shared ? '#b620e0' : 'transparent'"
+            :icon="jar.shared ? 'mdi-account-group-outline' : ''"
+            overlap
+            bottom
+          >
+            <v-btn icon :to="`jar/${jar.id}`" @click="getWarning(jar)">
+              <v-icon size="40" :color="jar.color">{{ getIcon(jar) }}</v-icon>
+            </v-btn>
+          </v-badge>
         </v-badge>
         <v-btn v-else icon :to="`jar/${jar.id}`">
           <v-icon size="40" :color="jar.color">{{ getIcon(jar) }}</v-icon>
