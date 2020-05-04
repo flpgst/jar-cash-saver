@@ -30,8 +30,9 @@
       </v-col>
     </v-row>
     <v-row class="ma-0 d-flex justify-center">
-      <v-col class="justify-self-center pa-0" cols="10">
+      <v-col class="justify-self-center px-0 pb-0" cols="10">
         <v-text-field
+          v-if="jar.unlockable"
           v-model="targetValue"
           label="Meta estipulada"
           :readonly="editTargetValue"
@@ -43,7 +44,7 @@
       </v-col>
     </v-row>
     <v-row class="ma-0 d-flex justify-center">
-      <v-col class="justify-self-center pa-0" cols="10">
+      <v-col class="justify-self-center px-0 pb-0" cols="10">
         <v-text-field
           :value="getMonthlyValue()"
           label="Valor depositado por mês"
@@ -54,7 +55,7 @@
       </v-col>
     </v-row>
     <v-row class="ma-0 d-flex justify-center">
-      <v-col class="justify-self-center pa-0" cols="10">
+      <v-col class="justify-self-center px-0 pb-0" cols="10">
         <v-text-field
           :value="jar.currentValue.toFixed(2)"
           label="Valor poupado até o momento"
@@ -67,6 +68,7 @@
     <v-row class="ma-0 d-flex justify-center">
       <v-col class="justify-self-center pa-0" cols="10">
         <v-text-field
+          v-if="jar.unlockable"
           v-model="dueDate"
           label="Data para atingir a meta"
           :readonly="editDueDate"
@@ -176,6 +178,9 @@ export default {
           break;
         case "COMPLETED":
           color = "#00a857";
+          break;
+        case "ACTIVE":
+          color = "transparent";
           break;
       }
       return color;
