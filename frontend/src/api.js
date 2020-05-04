@@ -27,6 +27,19 @@ function getAccount() {
   return JSON.parse(localStorage.account);
 }
 
+function getAccountTransactions() {
+  const jars = getJars();
+  const transactions = [];
+  for (let jar of jars) {
+    const history = jar.history;
+    const limit = history.length < 2 ? history.length : 2;
+    for (let i = 1; i <= limit; i++) {
+      transactions.push({ ...history[history.length - i], jar: jar.name });
+    }
+  }
+  return transactions;
+}
+
 function saveAccount(account) {
   localStorage.setItem("account", JSON.stringify(account));
 }
@@ -239,6 +252,7 @@ function processMonthlyIncoming(referenceDate) {
 export default {
   getAccount,
   saveAccount,
+  getAccountTransactions,
   getJars,
   getJarById,
   createJar,
