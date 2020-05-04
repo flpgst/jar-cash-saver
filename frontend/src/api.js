@@ -1,5 +1,10 @@
 import { differenceInMonths } from "date-fns";
 
+const YIELD_RATE = {
+  DEFAULT: 0.3,
+  ADVANCED: 0.5
+};
+
 //mocked
 function fetchAccount() {
   const account = {
@@ -57,7 +62,9 @@ function fetchJars() {
       color: "red",
       shared: false,
       unlockable: false,
-      status: "ACTIVE"
+      status: "ACTIVE",
+      yieldType: "DEFAULT",
+      history: []
     },
     {
       id: 2,
@@ -67,7 +74,9 @@ function fetchJars() {
       color: "cyan",
       shared: false,
       unlockable: false,
-      status: "ACTIVE"
+      status: "ACTIVE",
+      yieldType: "DEFAULT",
+      history: []
     }
   ];
   saveJars(jars);
@@ -80,9 +89,19 @@ function getJars() {
   return JSON.parse(localStorage.jars);
 }
 
+function getActiveJars() {
+  const jars = getJars();
+  return jars.filter(jar => jar.status !== "COMPLETED");
+}
+
 function getJarById(id) {
   const jars = getJars();
   return jars.find(jar => jar.id === id);
+}
+
+function saveJar(jar) {
+  const jars = getJars().filter(jar => jar.id !== jar.id);
+  saveJars([...jars, jar]);
 }
 
 function saveJars(jars) {
@@ -117,11 +136,13 @@ function createJar(
     color,
     shared,
     unlockable,
-    status: unlockable ? "LOCKED" : "ACTIVE"
+    status: unlockable ? "LOCKED" : "ACTIVE",
+    yieldType: "ADVANCED",
+    history: []
   });
   checkAndUpdateCompletedJars(account, jars);
   adjustNonGoalJarFractions(jars);
-  updateActiveJarValues(account, jars);
+  updateActiveJarValues(account, jars, null);
   saveJars(jars);
 }
 
@@ -162,11 +183,27 @@ function adjustNonGoalJarFractions(jars) {
   }
 }
 
-function updateActiveJarValues(account, jars) {
+function updateActiveJarValues(account, jars, referenceDate = null) {
   const activeJars = jars.filter(jar => jar.status !== "COMPLETED");
   for (let jar of activeJars) {
     const fractionValue = (account.currentValue * jar.fraction).toFixed(2);
-    jar.currentValue = fractionValue;
+    const yieldRate = YIELD_RATE[jar.yieldType];
+    const yieldValue = (yieldRate * jar.currentValue).toFixed(2);
+    if (referenceDate) {
+      jar.history.push({
+        date: referenceDate.toLocaleString(),
+        previousValue: jar.currentValue.toFixed(2),
+        incomeValue: yieldValue,
+        description: "Rendimentos"
+      });
+      jar.history.push({
+        date: referenceDate.toLocaleString(),
+        previousValue: jar.currentValue.toFixed(2) + yieldValue,
+        incomeValue: (fractionValue - jar.currentValue).toFixed(2),
+        description: "Valor poupado"
+      });
+    }
+    jar.currentValue = fractionValue + yieldValue;
     if (jar.status === "LOCKED" && jar.targetValue * 0.7 < jar.currentValue) {
       jar.status = "UNLOCKED";
     }
@@ -189,9 +226,9 @@ function getTrophies() {
   ];
 }
 
-function processMonthlyIncoming() {
+function processMonthlyIncoming(referenceDate) {
   const account = getAccount();
-  const jars = getJars();
+  const jars = getActiveJars();
   const income = account.monthlySaving;
   account.currentValue += income;
   account.coins += Math.ceil(income / 10);
@@ -199,7 +236,7 @@ function processMonthlyIncoming() {
 
   checkAndUpdateCompletedJars(account, jars);
   adjustNonGoalJarFractions(jars);
-  updateActiveJarValues(account, jars);
+  updateActiveJarValues(account, jars, referenceDate);
   saveJars(jars);
 }
 
@@ -209,6 +246,7 @@ export default {
   getJars,
   getJarById,
   createJar,
+  saveJar,
   getTrophies,
   processMonthlyIncoming
 };

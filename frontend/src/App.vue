@@ -13,9 +13,14 @@ import api from "./api";
 import "./app.css";
 import AppHeader from "./components/AppHeader";
 import AppMenu from "./components/AppMenu";
+import { addMonths } from "date-fns";
 
 export default {
   name: "App",
+
+  data: () => ({
+    currentDate: new Date()
+  }),
 
   components: {
     AppMenu,
@@ -24,7 +29,8 @@ export default {
 
   methods: {
     simulateMontlhyIncoming() {
-      api.processMonthlyIncoming();
+      this.currentDate = addMonths(this.currentDate, 1);
+      api.processMonthlyIncoming(this.currentDate);
     }
   },
 
