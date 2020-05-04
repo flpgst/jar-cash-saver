@@ -108,6 +108,18 @@ export default {
   methods: {
     format,
     parseISO,
+    loadJarData() {
+      const id = parseInt(this.id);
+      this.account = api.getAccount();
+      this.jar = api.getJarById(id);
+      this.getWarning(this.jar.status, false);
+      this.targetValue = this.jar.targetValue
+        ? this.jar.targetValue.toFixed(2)
+        : "";
+      this.dueDate = this.jar.dueDate
+        ? format(parseISO(this.jar.dueDate), "dd/MM/yyyy")
+        : "";
+    },
     getWarning(status, clicked) {
       if (
         (status === "UNLOCKED" && !clicked) ||
@@ -171,6 +183,7 @@ export default {
     toggleEditTargetValue() {
       if (!this.editTargetValue) {
         api.saveJar({ ...this.jar, targetValue: parseFloat(this.targetValue) });
+        this.loadJarData();
       }
       this.editTargetValue = !this.editTargetValue;
     },
@@ -183,21 +196,13 @@ export default {
           dateParts[0]
         );
         api.saveJar({ ...this.jar, dueDate: newDueDate });
+        this.loadJarData();
       }
       this.editDueDate = !this.editDueDate;
     }
   },
   mounted() {
-    const id = parseInt(this.id);
-    this.account = api.getAccount();
-    this.jar = api.getJarById(id);
-    this.getWarning(this.jar.status, false);
-    this.targetValue = this.jar.targetValue
-      ? this.jar.targetValue.toFixed(2)
-      : "";
-    this.dueDate = this.jar.dueDate
-      ? format(parseISO(this.jar.dueDate), "dd/MM/yyyy")
-      : "";
+    this.loadJarData();
   }
 };
 </script>
