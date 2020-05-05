@@ -18,8 +18,8 @@
         <p class="mb-0">
           Com a gente além de realizar grandes conquistas, você receberá dicas
           para sua saúde financeira, terá acesso a cursos online gratuitos e
-          muitos benefícios exclusivos para usuários do "APP TAL" fornecidos
-          pelos nossos parceiros.
+          muitos benefícios exclusivos para usuários do POUPJAR fornecidos pelos
+          nossos parceiros.
         </p>
       </v-col>
       <v-col cols="12" class="py-0">
