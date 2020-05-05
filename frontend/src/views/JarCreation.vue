@@ -99,7 +99,7 @@
     </v-row>
     <v-dialog v-model="dialog">
       <v-card flat>
-        <create-warning />
+        <create-warning :color="getColor()" />
       </v-card>
     </v-dialog>
     <v-snackbar top color="red" v-model="snackbar">{{ error }}</v-snackbar>
@@ -158,6 +158,9 @@ export default {
 
       const [day, month, year] = date.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    },
+    getColor() {
+      return colors[this.color];
     },
     createJar() {
       try {

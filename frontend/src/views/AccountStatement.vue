@@ -23,7 +23,7 @@
               </v-list-item-content>
               <v-list-item-action>
                 <v-list-item-action-text class="text--primary">
-                  {{ transaction.date }}
+                  {{ transaction.date.split(" ")[0] }}
                 </v-list-item-action-text>
 
                 <v-list-item-action-text class="text--primary">

@@ -1,22 +1,18 @@
 <template>
   <v-container v-if="jar">
     <v-row>
-      <v-col cols="12" class="font-weight-black text-center pb-0">
+      <v-col cols="12" class="font-weight-black text-center">
         {{ jar.name }}
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="pb-5">
       <v-col cols="12" class="text-center">
         <v-badge :color="getBadgeColor()" :icon="getLockIcon()" overlap>
           <v-tooltip right>
             <template v-slot:activator="{ on }">
-              <v-icon
-                @click="getWarning(jar.status, true)"
-                v-on="on"
-                size="80"
-                :color="jar.color"
-                >{{ getIcon() }}</v-icon
-              >
+              <div @click="getWarning(jar.status, true)">
+                <v-icon v-on="on" size="80">{{ getIcon() }}</v-icon>
+              </div>
             </template>
             <span class="caption" v-if="jar.status === 'LOCKED'">
               O cadeado abrirá apenas quando o jarro estiver 70% completo
@@ -29,10 +25,9 @@
         </v-badge>
       </v-col>
     </v-row>
-    <v-row class="ma-0 d-flex justify-center">
+    <v-row class="ma-0 d-flex justify-center" v-if="jar.unlockable">
       <v-col class="justify-self-center px-0 pb-0" cols="10">
         <v-text-field
-          v-if="jar.unlockable"
           v-model="targetValue"
           label="Meta estipulada"
           :readonly="editTargetValue"

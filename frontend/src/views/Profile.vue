@@ -58,7 +58,7 @@
                 v-html="
                   creditcard.name === 'unknown'
                     ? 'Bandeira não reconhecida'
-                    : credicard.name
+                    : creditcard.name
                 "
               />
               <v-list-item-subtitle v-html="creditcard.number" />
